@@ -1,0 +1,34 @@
+[
+    {
+      "name": "${container_name}",
+      "image": "${image}:${version}",
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+            "awslogs-group": "${cloudwatch_log_group_name}",
+            "awslogs-region": "${aws_region}",
+            "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "portMappings": [
+        {
+          "hostPort": ${container_port},
+          "protocol": "tcp",
+          "containerPort": ${container_port}
+        }
+      ],
+      "user":"${user}",
+      "cpu": ${cpu},
+      "memoryReservation": ${memory},
+      "mountPoints": [
+        {
+          "containerPath": "/var/lib/grafana",
+          "sourceVolume": "grafana-db",
+          "readOnly": false
+        }
+      ],
+      "volumesFrom": [],
+      "essential": true
+    }
+  ]
+  
